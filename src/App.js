@@ -1,10 +1,13 @@
 import styled from "styled-components";
-
+import Header from "./components/Header";
 
 function App() {
   return (
     <ContainerApp>
-    <h1>HEOUT</h1>
+    <Header>
+
+    </Header>
+
     </ContainerApp>
    
   );
