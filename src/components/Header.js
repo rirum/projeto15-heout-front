@@ -29,7 +29,7 @@ export default function Header(){
 
             <StyledIcons>
                 
-            <NavLink to="/"><RxInstagramLogo size={30} color="#293241"/></NavLink>
+            <NavLink to="#"><RxInstagramLogo size={30} color="#293241"/></NavLink>
             <NavLink to="/login"><RxPerson size={30} color="#293241"/></NavLink>
             <NavLink to="/cart"><HiOutlineShoppingCart size={30} color="#293241"/></NavLink>
             
