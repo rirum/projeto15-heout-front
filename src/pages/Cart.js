@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import {Link, useNavigate} from "react-router-dom";
 
 //caso carrinho vazio -> chamar WrapperBlank
 //se não WrapperPurchase
@@ -25,12 +26,46 @@ export default function Cart(){
                 <ProductDescription>Camisa polo extra giga algodão</ProductDescription>
                 <ProductPrice>R$ 1900,00</ProductPrice>
             </ProductChosen>
+            <ProductChosen>
+                <ProductImage></ProductImage>
+                <ProductDescription>Camisa polo extra giga algodão</ProductDescription>
+                <ProductPrice>R$ 1900,00</ProductPrice>
+            </ProductChosen>
+            <ProductChosen>
+                <ProductImage></ProductImage>
+                <ProductDescription>Camisa polo extra giga algodão</ProductDescription>
+                <ProductPrice>R$ 1900,00</ProductPrice>
+            </ProductChosen>
+            <ProductChosen>
+                <ProductImage></ProductImage>
+                <ProductDescription>Camisa polo extra giga algodão</ProductDescription>
+                <ProductPrice>R$ 1900,00</ProductPrice>
+            </ProductChosen>
+            <ProductChosen>
+                <ProductImage></ProductImage>
+                <ProductDescription>Camisa polo extra giga algodão</ProductDescription>
+                <ProductPrice>R$ 1900,00</ProductPrice>
+            </ProductChosen>
+            <ProductChosen>
+                <ProductImage></ProductImage>
+                <ProductDescription>Camisa polo extra giga algodão</ProductDescription>
+                <ProductPrice>R$ 1900,00</ProductPrice>
+            </ProductChosen>
 
+            
           
         </ContainerPurchase>
-
+        
         <ContainerPurchase>
+
+        <WrapperTotal>
+            <h1>Total:</h1>
+            <p>R$20000,00</p>
+         </WrapperTotal>
+
+        <NavLink to="/checkout">
         <ButtonFinish>Finalizar compra</ButtonFinish>
+        </NavLink>
         </ContainerPurchase>
 
         </WrapperPurchase>
@@ -110,4 +145,17 @@ border-radius: 10px;
 border: 1px solid #F06969;
 margin-top: 500px;
 font-size: 20px;
+`
+
+const WrapperTotal = styled.div`
+margin-top: 150px;
+h1{
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+`
+
+const NavLink = styled(Link)`
+text-decoration: none;
+color: #000;
 `
