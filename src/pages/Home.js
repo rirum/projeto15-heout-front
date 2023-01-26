@@ -65,7 +65,7 @@ export default function Home(){
 
         </WrapperProducts>
         
-<Footer></Footer>
+        <Footer></Footer>
 
         </>
     )
