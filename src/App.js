@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import Header from "./components/Header";
+
+import Home from "./pages/Home";
 
 function App() {
   return (
     <ContainerApp>
-    <Header>
+    <Home/>
 
-    </Header>
 
+
+    
     </ContainerApp>
    
   );
@@ -27,4 +29,5 @@ align-items: center;
 margin: 0px;
 padding: 0px;
 font-family: 'Lexend', sans-serif;
+
 `
