@@ -11,7 +11,8 @@ const WrapperFooter = styled.div`
 width: 100%;
 height: 100px;
 background-color: #fff;
-margin-top: 80px;
-
+position: fixed;
+bottom: 0;
+left: 0;
 
 `

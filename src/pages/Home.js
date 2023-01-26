@@ -108,7 +108,7 @@ const WrapperProducts = styled.div`
 width: 1350px;
 display: flex;
 justify-content: space-between;
-
+margin-bottom: 150px;
 `
 
 const BuyButton = styled.button`

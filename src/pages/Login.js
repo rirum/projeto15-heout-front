@@ -21,7 +21,7 @@ return(
         </form>
 
 
-        <NavLink to="/cadastro">
+        <NavLink to="/sign-up">
         <ContainerSignUp>Primeira vez aqui? Cadastre-se!</ContainerSignUp>
         </NavLink>
     </WrapperForm>
@@ -33,6 +33,7 @@ return(
 
 const WrapperForm = styled.div`
 width: 326px;
+margin-bottom: 100px;
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
