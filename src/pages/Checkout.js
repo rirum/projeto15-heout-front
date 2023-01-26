@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Footer from "../components/Footer";
 import Header from "../components/Header";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -38,7 +37,7 @@ export default function Checkout(){
 
 
         </CheckoutWrapper>
-        <Footer/>
+      
         </>
     )
 }
@@ -97,7 +96,7 @@ padding-left: 15px;
 font-size: 10px;
 &::placeholder{
     font-size:15px;
-    color: #000;
+    color: #b1a7a6;
     padding-left: 10px;
 }
 `

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import {Link, useNavigate} from "react-router-dom";
 
 //caso carrinho vazio -> chamar WrapperBlank
@@ -70,7 +69,7 @@ export default function Cart(){
 
         </WrapperPurchase>
 
-        <Footer/>
+        
         </>
     )
 }

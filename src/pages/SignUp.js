@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import {Link, useNavigate} from "react-router-dom";
 
 
@@ -27,7 +26,7 @@ export default function SignUp(){
         <ContainerSignUp>Já tem uma conta? Faça o login aqui!</ContainerSignUp>
         </NavLink>
     </WrapperForm>
-        <Footer/>
+        
 
         </>
     )
@@ -66,7 +65,7 @@ padding-left: 15px;
 font-size: 15px;
 &::placeholder{
     font-size:20px;
-    color: #000;
+    color: #D9D9D9;
     padding-left: 10px;
 }
 `

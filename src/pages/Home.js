@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { Link, useNavigate } from "react-router-dom";
+import bannerVerao from "../img/banner-verao.jpg";
 
 export default function Home(){
     return(
@@ -20,7 +20,7 @@ export default function Home(){
             <p>Consulte frete expresso</p>
             </TextBanner>
         </WrapperTextBanner>
-        <StyledBanner> inserir imagem mais tarde</StyledBanner>
+        <StyledBanner> <img src={bannerVerao} alt="banner"/></StyledBanner>
 
         <TextBanner><h2>Seleção de produtos</h2></TextBanner>
 
@@ -66,7 +66,7 @@ export default function Home(){
 
         </WrapperProducts>
         
-        <Footer></Footer>
+       
 
         </>
     )
@@ -142,9 +142,7 @@ align-items: center;
 margin-top: 5px;
 `
 const TextProducts = styled.div`
-
 margin-right: 15px;
-
 h1{ 
     font-size: 20px;
 }

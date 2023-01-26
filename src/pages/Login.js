@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 
@@ -26,7 +25,7 @@ return(
         </NavLink>
     </WrapperForm>
 
-    <Footer></Footer>
+   
     </>
 )
 }
@@ -64,7 +63,7 @@ padding-left: 15px;
 font-size: 15px;
 &::placeholder{
     font-size:20px;
-    color: #000;
+    color: #D9D9D9;
     padding-left: 10px;
 }
 `
