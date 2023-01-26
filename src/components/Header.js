@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { RxPerson, RxInstagramLogo } from "react-icons/rx";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { FaShippingFast } from "react-icons/fa";
-
+import {Link, useNavigate} from "react-router-dom";
 
 export default function Header(){
     return(
@@ -20,18 +20,18 @@ export default function Header(){
         <WrapperHeader>
 
            
-
+            <NavLink to="/">
             <StyledTitle>
             <h1>HEOUT</h1>
             </StyledTitle>
-
+            </NavLink>
 
 
             <StyledIcons>
                 
-            <RxInstagramLogo size={30} color="#293241"/>
-            <RxPerson size={30} color="#293241"/>
-            <HiOutlineShoppingCart size={30} color="#293241"/>
+            <NavLink to="/"><RxInstagramLogo size={30} color="#293241"/></NavLink>
+            <NavLink to="/login"><RxPerson size={30} color="#293241"/></NavLink>
+            <NavLink to="/cart"><HiOutlineShoppingCart size={30} color="#293241"/></NavLink>
             
             </StyledIcons>
             
@@ -59,7 +59,10 @@ p{
 const StyledText = styled.div`
 display: flex;
 `
-
+const NavLink = styled(Link)`
+text-decoration: none;
+color: #000;
+`
 const WrapperHeader = styled.div`
     height: 100px;
     width: 100%;
