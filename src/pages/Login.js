@@ -41,9 +41,9 @@ return(
         <form onSubmit={onSubmit}>
         <TextForm> Já sou cliente</TextForm>
         <p>E-mail:</p>
-        <LoginInput placeholder="insira seu e-mail aqui" type="email" onChange={handleInputChange} required/>
+        <LoginInput placeholder="insira seu e-mail aqui" type="email" name="email" id="email" onChange={handleInputChange} required/>
         <p>Senha:</p>
-        <LoginInput placeholder="insira sua senha aqui" type="password" onChange={handleInputChange} required/>
+        <LoginInput placeholder="insira sua senha aqui" type="password" name="password" id="password" onChange={handleInputChange} required/>
         <LoginButton>Entrar</LoginButton>
         </form>
 

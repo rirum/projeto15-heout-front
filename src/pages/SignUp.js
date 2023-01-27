@@ -1,32 +1,58 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import {Link, useNavigate} from "react-router-dom";
+import { useCallback, useState } from "react";
+import axios from 'axios';
 
 
 export default function SignUp(){
+
+    const [ form, setForm ] = useState({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+      });
+      const [ error, setError ] = useState(null);
+      const navigate = useNavigate();
+    
+      const onSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          await axios.post('/register', form);
+          navigate('/');
+        } catch (error) {
+          setError(error.response.data);
+        }
+      }
+    
+      const handleInputChange = useCallback(({ target: { name, value } }) => setForm({
+        ...form,
+        [name]: value,
+      }), [form, setForm])
+
     return(
         <>
         <Header/>
         <WrapperForm>
-        <form>
+        <form onSubmit={onSubmit}>
         <TextForm>Cadastre-se abaixo:</TextForm>
         <p>Nome:</p>
-        <LoginInput placeholder="insira seu nome aqui" type="text" required/>
+        <LoginInput placeholder="insira seu nome aqui" name="name" id="name" type="text" onChange={handleInputChange} required/>
         <p>E-mail:</p>
-        <LoginInput placeholder="insira seu e-mail aqui" type="email" required/>
+        <LoginInput placeholder="insira seu e-mail aqui" name="email" id="email" type="email" onChange={handleInputChange} required/>
         <p>Senha:</p>
-        <LoginInput placeholder="insira sua senha aqui" type="password" required/>
+        <LoginInput placeholder="insira sua senha aqui" name="password" id="password" type="password" onChange={handleInputChange} required/>
         <p>Confirme sua senha:</p>
-        <LoginInput placeholder="confirme sua senha aqui" type="password" required/>
+        <LoginInput placeholder="confirme sua senha aqui" name="password_confirmation" id="password_confirmation" type="password" onChange={handleInputChange} required/>
         <LoginButton>Entrar</LoginButton>
         </form>
-
 
         <NavLink to="/login">
         <ContainerSignUp>Já tem uma conta? Faça o login aqui!</ContainerSignUp>
         </NavLink>
     </WrapperForm>
-        
 
         </>
     )
