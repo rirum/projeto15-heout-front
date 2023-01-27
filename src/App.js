@@ -6,29 +6,25 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import { AuthProvider } from './AppContext/auth.js'
 
 function App() {
   return (
     <BrowserRouter>
     
     <ContainerApp>
-    <AppProvider>
+    {/* <AppProvider> */}
     <Routes>
-
-
-    <Route path="/" element={<Home/>} />
-    <Route path="/login" element={<Login/>} />
-    <Route path="/sign-up" element={<SignUp/>} />
-    <Route path="/cart" element={<Cart/>} />
-    <Route path="/checkout" element={<Checkout/>} />
-
-
-    
-
-
+      <Route element={<AuthProvider />}>
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="/checkout" element={<Checkout/>} />
+      </Route>
 
     </Routes>
-    </AppProvider>
+    {/* </AppProvider> */}
     </ContainerApp>
     </BrowserRouter>
    
@@ -36,7 +32,6 @@ function App() {
 }
 
 export default App;
-
 
 const ContainerApp = styled.div`
 width:100vw;

@@ -1,9 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 
+import { useCallback, useContext, useState } from "react";
+import axios from "axios";
+import AuthContext from "../AppContext/auth.js"
 
 export default function Login(){
+
+    const [ form, setForm ] = useState({
+        email: "",
+        password: "",
+      });
+      const [ error, setError ] = useState(null);
+      const { setToken, setUser } = useContext(AuthContext);
+      const navigate = useNavigate();
+    
+      const onSubmit = (e) => {
+        e.preventDefault();
+    
+        axios.post('/authenticate', form)
+          .then(({data}) => {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+            setToken(data.token);
+            setUser(data.user);
+            navigate('/home');
+          }).catch(error => setError(error.response.data));
+      }
+    
+      const handleInputChange = useCallback(({ target: { name, value } }) => setForm({
+        ...form,
+        [name]: value,
+      }), [form, setForm])
 
 return(
     <>
@@ -13,12 +41,11 @@ return(
         <form>
         <TextForm> Já sou cliente</TextForm>
         <p>E-mail:</p>
-        <LoginInput placeholder="insira seu e-mail aqui" type="email" required/>
+        <LoginInput placeholder="insira seu e-mail aqui" type="email" onChange={handleInputChange} required/>
         <p>Senha:</p>
-        <LoginInput placeholder="insira sua senha aqui" type="password" required/>
+        <LoginInput placeholder="insira sua senha aqui" type="password" onChange={handleInputChange} required/>
         <LoginButton>Entrar</LoginButton>
         </form>
-
 
         <NavLink to="/sign-up">
         <ContainerSignUp>Primeira vez aqui? Cadastre-se!</ContainerSignUp>
