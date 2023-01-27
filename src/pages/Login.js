@@ -38,7 +38,7 @@ return(
     <Header></Header>
 
     <WrapperForm>
-        <form>
+        <form onSubmit={onSubmit}>
         <TextForm> Já sou cliente</TextForm>
         <p>E-mail:</p>
         <LoginInput placeholder="insira seu e-mail aqui" type="email" onChange={handleInputChange} required/>

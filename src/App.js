@@ -14,6 +14,7 @@ function App() {
     
     <ContainerApp>
     {/* <AppProvider> */}
+
     <Routes>
       <Route element={<AuthProvider />}>
         <Route path="/" element={<Home/>} />
