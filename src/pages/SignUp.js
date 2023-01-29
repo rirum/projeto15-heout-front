@@ -20,8 +20,8 @@ export default function SignUp(){
         e.preventDefault();
     
         try {
-          await axios.post('/register', form);
-          navigate('/');
+          await axios.post(`${process.env.REACT_APP_API_URL}/register`, form);
+          navigate('/login');
         } catch (error) {
           setError(error.response.data);
         }

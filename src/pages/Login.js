@@ -19,12 +19,12 @@ export default function Login(){
       const onSubmit = (e) => {
         e.preventDefault();
     
-        axios.post('/authenticate', form)
+        axios.post(`${process.env.REACT_APP_API_URL}/authenticate`, form)
           .then(({data}) => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
             setToken(data.token);
             setUser(data.user);
-            navigate('/home');
+            navigate('/');
           }).catch(error => setError(error.response.data));
       }
     

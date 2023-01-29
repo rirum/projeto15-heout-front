@@ -47,6 +47,7 @@ export default function Home(){
         console.log(error);
        }
     }
+    if(!products) return
 
     return(
         <>
@@ -75,7 +76,7 @@ export default function Home(){
       
         {products.map((product) => 
         <BoxProducts>
-        <ContainerProduct> <img src={product.newProduct.pictures[0]} key={product.newProduct.description} /></ContainerProduct> 
+        <ContainerProduct><img src={product.newProduct.pictures[0]} key={product.newProduct.description} /></ContainerProduct> 
          <ProductTitle><TextProducts><h1>R$ {product.newProduct.value}</h1> </TextProducts><BuyButton onClick={() => addCart(product)}><p>adicionar ao carrinho</p></BuyButton></ProductTitle>
          <TextProducts><p>{product.newProduct.description}</p></TextProducts>
         </BoxProducts>
