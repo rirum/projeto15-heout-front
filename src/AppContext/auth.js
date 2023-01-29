@@ -2,6 +2,7 @@ import { createContext, useEffect } from "react";
 import useStickyState from "../hooks/useStickyState.js";
 import axios from 'axios';
 import { Outlet } from "react-router-dom";
+import Home from "../pages/Home.js";
 
 const AuthContext = createContext({});
 
@@ -24,6 +25,7 @@ export const AuthProvider = () => {
         setUser,
       }}
     >
+      
       <Outlet />
     </AuthContext.Provider>
   )

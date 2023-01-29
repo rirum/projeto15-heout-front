@@ -2,8 +2,52 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { Link, useNavigate } from "react-router-dom";
 import bannerVerao from "../img/banner-verao.jpg";
+import { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import AppContext from "../AppContext/Context";
+import  AuthProvider  from "../AppContext/auth";
 
 export default function Home(){
+
+    const [ products, setProducts ] = useState([]);
+    const { cart, setCart } = useContext(AppContext);
+    const { token } = useContext(AuthProvider);
+    console.log(token)
+
+    useEffect(()=> {
+        showProducts();
+    },[]);
+
+    async function showProducts(){
+        try{
+            const URL = `${process.env.REACT_APP_API_URL}/products`;
+            
+            axios
+            .get(URL)
+            .then((response) =>{
+                setProducts(response.data);
+                
+            })
+        } catch(error){
+            console.log(error);
+        }
+    }
+
+    async function addCart(product){
+       try {
+        const URL = `${process.env.REACT_APP_API_URL}/postProductCart`;
+        const config = { headers: { Authorization: `Bearer ${token}`}}
+        axios.post(URL, {
+            "productID": product._id
+        }, config).then((response) => {
+            setCart(response.data);
+            
+        });
+       }catch(error){
+        console.log(error);
+       }
+    }
+
     return(
         <>
         <Header/>
@@ -29,38 +73,16 @@ export default function Home(){
 
         
       
-
+        {products.map((product) => 
         <BoxProducts>
-        <ContainerProduct> inserir imagem mais tarde</ContainerProduct> 
-         <ProductTitle><TextProducts><h1>R$1909,99</h1> </TextProducts><BuyButton><p>adicionar ao carrinho</p></BuyButton></ProductTitle>
-         <TextProducts><p>Vestido poliéster festa curto lantejoula mini cintura vamos quebrar</p></TextProducts>
+        <ContainerProduct> <img src={product.newProduct.pictures[0]} key={product.newProduct.description} /></ContainerProduct> 
+         <ProductTitle><TextProducts><h1>R$ {product.newProduct.value}</h1> </TextProducts><BuyButton onClick={() => addCart(product)}><p>adicionar ao carrinho</p></BuyButton></ProductTitle>
+         <TextProducts><p>{product.newProduct.description}</p></TextProducts>
         </BoxProducts>
 
-        <BoxProducts>
-        <ContainerProduct> inserir imagem mais tarde</ContainerProduct> 
-         <ProductTitle><TextProducts><h1>R$19909,00</h1> </TextProducts><BuyButton><p>adicionar ao carrinho</p></BuyButton></ProductTitle>
-         <TextProducts><p>Vestido muitissimo longo</p></TextProducts>
-         
-        </BoxProducts>
-
-        <BoxProducts>
-        <ContainerProduct> inserir imagem mais tarde</ContainerProduct> 
-         <ProductTitle><TextProducts><h1>R$39,90</h1> </TextProducts><BuyButton><p>adicionar ao carrinho</p></BuyButton></ProductTitle>
-         <TextProducts><p>Cropped</p></TextProducts>
-         
-        </BoxProducts>
-        <BoxProducts>
-        <ContainerProduct> inserir imagem mais tarde</ContainerProduct> 
-         <ProductTitle><TextProducts><h1>R$50,00</h1> </TextProducts><BuyButton><p>adicionar ao carrinho</p></BuyButton></ProductTitle>
-         <TextProducts><p>Camiseta Básica</p></TextProducts>
-         
-        </BoxProducts>
-        <BoxProducts>
-        <ContainerProduct> inserir imagem mais tarde</ContainerProduct> 
-         <ProductTitle><TextProducts><h1>R$1999,00</h1> </TextProducts><BuyButton><p>adicionar ao carrinho</p></BuyButton></ProductTitle>
-         <TextProducts><p>Sobretudo em seda</p></TextProducts>
-         
-        </BoxProducts>
+        )}
+  
+     
 
 
 
@@ -105,9 +127,10 @@ background-color: #98c1d9;
 margin-top: 10px;
 `
 const WrapperProducts = styled.div`
-width: 1350px;
+width: 1450px;
 display: flex;
-justify-content: space-between;
+flex-wrap: wrap;
+justify-content: space-evenly;
 margin-bottom: 150px;
 `
 
@@ -129,9 +152,12 @@ margin-right: 25px;
 `
 
 const ContainerProduct = styled.div`
-width: 250px;
-height: 300px;
-background-color: #98c1d9;
+
+img{
+    width: 250px;
+    height: 300px;
+    margin-top: 5px;
+}
 
 `
 
