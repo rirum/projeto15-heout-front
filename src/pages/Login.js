@@ -7,6 +7,7 @@ import axios from "axios";
 import AuthContext from "../AppContext/auth.js";
 
 export default function Login() {
+  const baseURL = "https://heout.onrender.com";
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -19,7 +20,7 @@ export default function Login() {
     e.preventDefault();
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/authenticate`, form)
+      .post(`${baseURL}/authenticate`, form)
       .then(({ data }) => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
         setToken(data.token);

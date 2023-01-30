@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 
 export default function SignUp() {
+  const baseURL = "https://heout.onrender.com";
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -18,7 +19,7 @@ export default function SignUp() {
     e.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/register`, form);
+      await axios.post(`${baseURL}/register`, form);
       navigate("/login");
     } catch (error) {
       setError(error.response.data);

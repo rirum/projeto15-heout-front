@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const CartContext = createContext({});
 
 export default function CartProvider({ children }) {
+  const baseURL = "https://heout.onrender.com";
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [modified, setModified] = useState(false);
@@ -13,7 +14,7 @@ export default function CartProvider({ children }) {
 
   async function findCart(token) {
     try {
-      const getCartURL = `${process.env.REACT_APP_API_URL}/getCart`;
+      const getCartURL = `${baseURL}/getCart`;
       const res = await axios.get(getCartURL, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -31,7 +32,7 @@ export default function CartProvider({ children }) {
     e.preventDefault();
     const body = { productID: productID };
     try {
-      const deleteProductURL = `${process.env.REACT_APP_API_URL}/deleteProductsCart`;
+      const deleteProductURL = `${baseURL}/deleteProductsCart`;
       await axios.put(deleteProductURL, body, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -54,7 +55,7 @@ export default function CartProvider({ children }) {
 
     const body = { cardNumber, cardExpiration, tokenCard };
     try {
-      const purchaseURL = `${process.env.REACT_APP_API_URL}/purchase`;
+      const purchaseURL = `${baseURL}/purchase`;
       const response = await axios.post(purchaseURL, body, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -71,7 +72,7 @@ export default function CartProvider({ children }) {
   async function addCart(e, token, product) {
     e.preventDefault();
     try {
-      const URL = `${process.env.REACT_APP_API_URL}/postProductCart`;
+      const URL = `${baseURL}/postProductCart`;
       const config = { headers: { Authorization: `Bearer ${token}` } };
       const res = await axios.post(
         URL,

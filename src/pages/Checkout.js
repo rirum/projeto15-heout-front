@@ -7,7 +7,7 @@ import { CartContext } from "../AppContext/CartContext";
 
 export default function Checkout() {
   const { token } = useContext(AuthProvider);
-  const { cart, total, modified, buy, findCart} = useContext(CartContext);
+  const { cart, total, modified, buy, findCart } = useContext(CartContext);
   const [cardNumber, setcardNumber] = useState("");
   const [cardExpiration, setcardExpiration] = useState("");
   const [tokenCard, settokenCard] = useState("");
@@ -19,11 +19,15 @@ export default function Checkout() {
   if (!cart) return;
 
   return (
-    <>
+    <Container>
       <Header />
       <CheckoutWrapper>
         <CustomerInfo>
-          <form onSubmit={(e) => buy(e, token, cardNumber, cardExpiration, tokenCard)}>
+          <form
+            onSubmit={(e) =>
+              buy(e, token, cardNumber, cardExpiration, tokenCard)
+            }
+          >
             <TextForm> Preencha os seus dados para pagamento:</TextForm>
 
             <Input
@@ -66,16 +70,25 @@ export default function Checkout() {
           <h2>Total: R$ {total}</h2>
         </ProductsInfo>
       </CheckoutWrapper>
-    </>
+    </Container>
   );
 }
 
+const Container = styled.div`
+  width: 100%;
+`;
+
 const CheckoutWrapper = styled.div`
   display: flex;
+  @media (max-width: 500px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const CustomerInfo = styled.div`
-  width: 500px;
+  width: 50%;
   align-items: flex-start;
   p {
     margin-top: 10px;
@@ -84,10 +97,16 @@ const CustomerInfo = styled.div`
     text-decoration: none;
     color: black;
   }
+  @media (max-width: 500px) {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const ProductsInfo = styled.div`
-  width: 500px;
+  width: 50%;
   margin-top: 100px;
   h1 {
     font-size: 30px;
@@ -101,6 +120,13 @@ const ProductsInfo = styled.div`
   h2 {
     font-size: 25px;
     margin-top: 30px;
+  }
+  @media (max-width: 500px) {
+    margin-top: 50px;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 `;
 

@@ -48,6 +48,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-`
+*{
+	@media (max-width: 500px) {
+		overflow-x: hidden;	
+		overflow-y: hidden;	
+	}
+}
 
-export default GlobalStyle
+`;
+
+export default GlobalStyle;

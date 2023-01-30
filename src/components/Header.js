@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   return (
-    <>
+    <Container>
       <MiniBanner>
         <StyledText>
           <FaShippingFast size={18} color="white" />
@@ -37,9 +37,13 @@ export default function Header() {
           </NavLink>
         </StyledIcons>
       </WrapperHeader>
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: 100%;
+`;
 
 const MiniBanner = styled.div`
   height: 30px;
@@ -48,7 +52,6 @@ const MiniBanner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-
   p {
     color: #fff;
     font-size: 15px;
@@ -73,11 +76,11 @@ const WrapperHeader = styled.div`
 
 const StyledTitle = styled.div`
   width: 200px;
-
   h1 {
     margin-top: 30px;
-    font-size: 50px;
+    font-size: 45px;
     font-weight: 600;
+    padding: 1%;
   }
 `;
 
@@ -86,4 +89,7 @@ const StyledIcons = styled.div`
   display: flex;
   margin-top: 40px;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    width: 120px;
+  }
 `;

@@ -31,7 +31,7 @@ function App() {
 export default App;
 
 const ContainerApp = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background-color: #ececec;
   margin: 0px;
@@ -41,4 +41,5 @@ const ContainerApp = styled.div`
   margin: 0px;
   padding: 0px;
   font-family: "Lexend", sans-serif;
+  overflow-x:hidden;
 `;

@@ -2,13 +2,15 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import AuthProvider from "../AppContext/auth";
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../AppContext/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const { token } = useContext(AuthProvider);
-  const { cart, total, modified, findCart, deleteProduct} = useContext(CartContext);
+  const { cart, total, modified, findCart, deleteProduct } =
+    useContext(CartContext);
 
   useEffect(() => {
     findCart(token);
@@ -17,12 +19,12 @@ export default function Cart() {
   if (!cart) return;
 
   return (
-    <>
+    <Container>
       <Header />
       {cart.length === 0 ? (
         <WrapperBlank>
           <p>Seu carrinho está vazio</p>
-          <ButtonGoBack>Volte para ver produtos</ButtonGoBack>
+          <ButtonGoBack onClick={()=>navigate("/")}>Volte para ver produtos</ButtonGoBack>
         </WrapperBlank>
       ) : (
         <WrapperPurchase>
@@ -33,12 +35,8 @@ export default function Cart() {
 
             {cart.map((product) => (
               <ProductChosen>
-                <ProductImage
-                  src={product.pictures[0]}
-                ></ProductImage>
-                <ProductDescription>
-                  {product.name}
-                </ProductDescription>
+                <ProductImage src={product.pictures[0]}></ProductImage>
+                <ProductDescription>{product.name}</ProductDescription>
                 <ProductPrice>{`R$ ${product.value}`}</ProductPrice>
                 <ion-icon
                   name="trash-outline"
@@ -57,9 +55,13 @@ export default function Cart() {
           </ContainerInfos>
         </WrapperPurchase>
       )}
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: 100%;
+`;
 
 const WrapperBlank = styled.div`
   display: flex;
@@ -83,7 +85,10 @@ const ButtonGoBack = styled.button`
 `;
 const WrapperPurchase = styled.div`
   display: flex;
-  width: 100%; ;
+  width: 100%;
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
 `;
 const StyledTitle = styled.div`
   p {
@@ -99,6 +104,9 @@ const ContainerProduct = styled.div`
   align-items: center;
   ion-icon {
     font-size: 32px;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
   }
 `;
 const ContainerInfos = styled.div`
@@ -118,6 +126,14 @@ const ContainerInfos = styled.div`
     font-weight: 700;
     margin-bottom: 5px;
   }
+  @media (max-width: 500px) {
+    width: 100%;
+    h1 {
+      margin-top: 5%;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+  }
 `;
 
 const ProductChosen = styled.div`
@@ -129,6 +145,9 @@ const ProductChosen = styled.div`
   ion-icon {
     width: 10%;
     font-size: 35px;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
   }
 `;
 
