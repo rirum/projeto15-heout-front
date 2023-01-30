@@ -3,13 +3,13 @@ import Header from "../components/Header";
 import bannerVerao from "../img/banner-verao.jpg";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { CartContext } from "../AppContext/CartContext.js";
 import AuthProvider from "../AppContext/auth";
+import { CartContext } from "../AppContext/CartContext";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  const { cart, setCart } = useContext(CartContext);
   const { token } = useContext(AuthProvider);
+  const { addCart} = useContext(CartContext);
 
   useEffect(() => {
     showProducts();
@@ -22,24 +22,6 @@ export default function Home() {
       axios.get(URL).then((response) => {
         setProducts(response.data);
       });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function addCart(e, product) {
-    e.preventDefault();
-    try {
-      const URL = `${process.env.REACT_APP_API_URL}/postProductCart`;
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.post(
-        URL,
-        {
-          productID: product._id,
-        },
-        config
-      );
-      setCart(res.data.products);
     } catch (error) {
       console.log(error);
     }
@@ -75,21 +57,18 @@ export default function Home() {
         {products.map((product) => (
           <BoxProducts key={product._id}>
             <ContainerProduct>
-              <img
-                src={product.newProduct.pictures[0]}
-                key={product.newProduct.description}
-              />
+              <img src={product.pictures[0]} key={product.description} />
             </ContainerProduct>
             <ProductTitle>
               <TextProducts>
-                <h1>R$ {product.newProduct.value}</h1>{" "}
+                <h1>R$ {product.value}</h1>{" "}
               </TextProducts>
-              <BuyButton onClick={(e) => addCart(e, product)}>
+              <BuyButton onClick={(e) => addCart(e, token, product)}>
                 <p>adicionar ao carrinho</p>
               </BuyButton>
             </ProductTitle>
             <TextProducts>
-              <p>{product.newProduct.description}</p>
+              <p>{product.description}</p>
             </TextProducts>
           </BoxProducts>
         ))}

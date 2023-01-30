@@ -2,62 +2,19 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { useContext, useEffect, useState } from "react";
 import AuthProvider from "../AppContext/auth";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { CartContext } from "../AppContext/CartContext";
 
 export default function Checkout() {
   const { token } = useContext(AuthProvider);
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [modified, setModified] = useState(false);
+  const { cart, total, modified, buy, findCart} = useContext(CartContext);
   const [cardNumber, setcardNumber] = useState("");
   const [cardExpiration, setcardExpiration] = useState("");
   const [tokenCard, settokenCard] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
-    async function findCart() {
-      try {
-        const getCartURL = `${process.env.REACT_APP_API_URL}/getCart`;
-        const res = await axios.get(getCartURL, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        let sum = 0;
-        setCart(res.data.products);
-        res.data.products.map((item) => (sum += Number(item.newProduct.value)));
-        setTotal(sum);
-        setModified(false);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    findCart();
+    findCart(token);
   }, [token, modified]);
-
-  async function buy(e) {
-    e.preventDefault();
-    if (isNaN(cardNumber) || cardNumber <= 0)
-      return alert("Informe numero de cartão válido (somente números)!");
-    if (cardExpiration === "" || cardExpiration <= 0 || !cardExpiration)
-      return alert("Informe uma data válida!");
-    if (isNaN(tokenCard) || tokenCard <= 0)
-      return alert("Informe um número de segurança válido (somente números)!");
-
-    const body = { cardNumber, cardExpiration, tokenCard };
-    try {
-      const purchaseURL = `${process.env.REACT_APP_API_URL}/purchase`;
-      const response = await axios.post(purchaseURL, body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      alert("Compra concluída! Valor total: R$" + response.data.total);
-      setModified(true);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   if (!cart) return;
 
@@ -66,7 +23,7 @@ export default function Checkout() {
       <Header />
       <CheckoutWrapper>
         <CustomerInfo>
-          <form onSubmit={(e) => buy(e)}>
+          <form onSubmit={(e) => buy(e, token, cardNumber, cardExpiration, tokenCard)}>
             <TextForm> Preencha os seus dados para pagamento:</TextForm>
 
             <Input
@@ -103,7 +60,7 @@ export default function Checkout() {
           <h1>Confira seu pedido:</h1>
           {cart.map((product) => (
             <p>
-              {product.newProduct.name} - R$ {product.newProduct.value}
+              {product.name} - R$ {product.value}
             </p>
           ))}
           <h2>Total: R$ {total}</h2>

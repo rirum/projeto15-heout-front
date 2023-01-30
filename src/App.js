@@ -6,13 +6,13 @@ import SignUp from "./pages/SignUp";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import { AuthProvider } from "./AppContext/auth.js";
+import CartProvider from "./AppContext/CartContext";
 
 function App() {
   return (
     <BrowserRouter>
       <ContainerApp>
-        {/* <AppProvider> */}
-
+        <CartProvider> 
         <Routes>
           <Route element={<AuthProvider />}>
             <Route path="/" element={<Home />} />
@@ -22,7 +22,7 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
           </Route>
         </Routes>
-        {/* </AppProvider> */}
+        </CartProvider>
       </ContainerApp>
     </BrowserRouter>
   );

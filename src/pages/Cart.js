@@ -4,47 +4,15 @@ import { Link } from "react-router-dom";
 import AuthProvider from "../AppContext/auth";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../AppContext/CartContext";
 
 export default function Cart() {
   const { token } = useContext(AuthProvider);
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [modified, setModified] = useState(false);
+  const { cart, total, modified, findCart, deleteProduct} = useContext(CartContext);
 
   useEffect(() => {
-    async function findCart() {
-      try {
-        const getCartURL = `${process.env.REACT_APP_API_URL}/getCart`;
-        const res = await axios.get(getCartURL, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        let sum = 0;
-        setCart(res.data.products);
-        res.data.products.map((item) => (sum += Number(item.newProduct.value)));
-        setTotal(sum);
-        setModified(false);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    findCart();
+    findCart(token);
   }, [token, modified]);
-
-  async function deleteProduct(e, productID) {
-    e.preventDefault();
-    const body = { productID: productID };
-    try {
-      const deleteProductURL = `${process.env.REACT_APP_API_URL}/deleteProductsCart`;
-      await axios.put(deleteProductURL, body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setModified(true);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   if (!cart) return;
 
@@ -66,15 +34,15 @@ export default function Cart() {
             {cart.map((product) => (
               <ProductChosen>
                 <ProductImage
-                  src={product.newProduct.pictures[0]}
+                  src={product.pictures[0]}
                 ></ProductImage>
                 <ProductDescription>
-                  {product.newProduct.name}
+                  {product.name}
                 </ProductDescription>
-                <ProductPrice>{`R$ ${product.newProduct.value}`}</ProductPrice>
+                <ProductPrice>{`R$ ${product.value}`}</ProductPrice>
                 <ion-icon
                   name="trash-outline"
-                  onClick={(e) => deleteProduct(e, product._id)}
+                  onClick={(e) => deleteProduct(e, token, product._id)}
                 ></ion-icon>
               </ProductChosen>
             ))}
