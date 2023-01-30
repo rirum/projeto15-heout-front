@@ -51,7 +51,6 @@ table {
 *{
 	@media (max-width: 500px) {
 		overflow-x: hidden;	
-		overflow-y: hidden;	
 	}
 }
 
