@@ -45,7 +45,7 @@ export default function Checkout() {
               required
             />
             <Input
-              placeholder="Senha"
+              placeholder="Código de segurança"
               type="text"
               value={tokenCard}
               onChange={(e) => settokenCard(e.target.value)}

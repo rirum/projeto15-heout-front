@@ -71,6 +71,11 @@ export default function CartProvider({ children }) {
 
   async function addCart(e, token, product) {
     e.preventDefault();
+    console.log(token)
+    if(!token || token===""){
+      alert("É necessário realizar login para adicionar um produto ao carrinho!")      
+      return navigate("/login");
+    }
     try {
       const URL = `${baseURL}/postProductCart`;
       const config = { headers: { Authorization: `Bearer ${token}` } };
