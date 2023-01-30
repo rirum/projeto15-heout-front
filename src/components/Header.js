@@ -57,10 +57,19 @@ const MiniBanner = styled.div`
     font-size: 15px;
     margin-left: 10px;
   }
+
+  @media (max-width: 500px) {
+    height: 50px;
+  }
 `;
 
 const StyledText = styled.div`
   display: flex;
+  @media (max-width: 500px) {
+    font-size: 10px;
+    height:50px;
+    align-items:center;
+  }
 `;
 const NavLink = styled(Link)`
   text-decoration: none;

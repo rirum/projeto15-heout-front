@@ -169,6 +169,7 @@ const BuyButton = styled.button`
   }
   @media (max-width: 500px) {
     width: 100%;
+    height: 40px;
   }
 `;
 const BoxProducts = styled.div`
@@ -247,6 +248,7 @@ const DescriptionProducts = styled.div`
     width: 95%;
     p {
       font-size: 12px;
+      padding: 2%;
     }
   }
 `;
