@@ -27,7 +27,7 @@ export default function Login() {
         setUser(data.user);
         navigate("/");
       })
-      .catch((error) => setError(error.response.data));
+      .catch((error) => {setError(error.response.data); alert(error.response.data)});
   };
 
   const handleInputChange = useCallback(

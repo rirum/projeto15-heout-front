@@ -23,6 +23,7 @@ export default function SignUp() {
       navigate("/login");
     } catch (error) {
       setError(error.response.data);
+      alert(error.response.data);
     }
   };
 
@@ -77,7 +78,7 @@ export default function SignUp() {
             onChange={handleInputChange}
             required
           />
-          <LoginButton>Entrar</LoginButton>
+          <LoginButton>Cadastrar</LoginButton>
         </form>
 
         <NavLink to="/login">
