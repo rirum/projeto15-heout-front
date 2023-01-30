@@ -89,6 +89,11 @@ const CheckoutWrapper = styled.div`
 
 const CustomerInfo = styled.div`
   width: 50%;
+  box-sizing:border-box;
+  padding-left:15%;
+  padding-right:10%;
+  display:flex;
+  flex-direction: column;
   align-items: flex-start;
   p {
     margin-top: 10px;
@@ -99,7 +104,6 @@ const CustomerInfo = styled.div`
   }
   @media (max-width: 500px) {
     width: 90%;
-    flex-direction: column;
     align-items: center;
     text-align: center;
   }
