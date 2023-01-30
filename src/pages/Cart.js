@@ -33,11 +33,6 @@ export default function Cart() {
   async function deleteProduct(e,productID) {
     e.preventDefault();
     const body = { productID: productID };
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
     try {
       const deleteProductURL = `${process.env.REACT_APP_API_URL}/deleteProductsCart`;
       await axios.put(deleteProductURL, body, {
@@ -51,7 +46,7 @@ export default function Cart() {
     }
   }
 
-  if (!cart) return "h";
+  if (!cart) return;
 
   return (
     <>
