@@ -20,17 +20,17 @@ export default function Cart() {
         });
         let sum = 0;
         setCart(res.data.products);
-        res.data.products.map((item) => sum += Number(item.newProduct.value))
+        res.data.products.map((item) => (sum += Number(item.newProduct.value)));
         setTotal(sum);
-        setModified(false)
+        setModified(false);
       } catch (error) {
         console.log(error);
       }
     }
     findCart();
-  }, [modified]);
+  }, [token, modified]);
 
-  async function deleteProduct(e,productID) {
+  async function deleteProduct(e, productID) {
     e.preventDefault();
     const body = { productID: productID };
     try {
@@ -72,14 +72,17 @@ export default function Cart() {
                   {product.newProduct.name}
                 </ProductDescription>
                 <ProductPrice>{`R$ ${product.newProduct.value}`}</ProductPrice>
-                <ion-icon name="trash-outline" onClick={(e) => deleteProduct(e, product._id)}></ion-icon>
+                <ion-icon
+                  name="trash-outline"
+                  onClick={(e) => deleteProduct(e, product._id)}
+                ></ion-icon>
               </ProductChosen>
             ))}
           </ContainerProduct>
 
           <ContainerInfos>
-              <h1>Total:</h1>
-              <p>R$ {total.toFixed(2)}</p>
+            <h1>Total:</h1>
+            <p>R$ {total.toFixed(2)}</p>
             <Link to="/checkout">
               <ButtonFinish>Finalizar compra</ButtonFinish>
             </Link>
@@ -137,7 +140,7 @@ const ContainerInfos = styled.div`
   align-items: center;
   justify-content: start;
   a {
-    width:100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     text-decoration: none;
@@ -178,7 +181,7 @@ const ProductPrice = styled.div`
 `;
 
 const ButtonFinish = styled.button`
-    width: 70%;
+  width: 70%;
   height: 50px;
   color: #fff;
   background-color: #f06969;
@@ -187,5 +190,3 @@ const ButtonFinish = styled.button`
   font-size: 20px;
   margin-top: 5%;
 `;
-
-

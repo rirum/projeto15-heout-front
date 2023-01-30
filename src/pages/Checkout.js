@@ -3,16 +3,17 @@ import Header from "../components/Header";
 import { useContext, useEffect, useState } from "react";
 import AuthProvider from "../AppContext/auth";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Checkout() {
   const { token } = useContext(AuthProvider);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [modified, setModified] = useState(false);
-  const [cardNumber, setcardNumber] = useState([]);
-  const [cardExpiration, setcardExpiration] = useState(0);
-  const [tokenCard, settokenCard] = useState(false);
+  const [cardNumber, setcardNumber] = useState("");
+  const [cardExpiration, setcardExpiration] = useState("");
+  const [tokenCard, settokenCard] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function findCart() {
@@ -31,19 +32,28 @@ export default function Checkout() {
       }
     }
     findCart();
-  }, [modified]);
+  }, [token, modified]);
 
   async function buy(e) {
     e.preventDefault();
+    if (isNaN(cardNumber) || cardNumber <= 0)
+      return alert("Informe numero de cartão válido (somente números)!");
+    if (cardExpiration === "" || cardExpiration <= 0 || !cardExpiration)
+      return alert("Informe uma data válida!");
+    if (isNaN(tokenCard) || tokenCard <= 0)
+      return alert("Informe um número de segurança válido (somente números)!");
+
     const body = { cardNumber, cardExpiration, tokenCard };
     try {
       const purchaseURL = `${process.env.REACT_APP_API_URL}/purchase`;
-      await axios.post(purchaseURL, body, {
+      const response = await axios.post(purchaseURL, body, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      alert("Compra concluída! Valor total: R$" + response.data.total);
       setModified(true);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -56,32 +66,32 @@ export default function Checkout() {
       <Header />
       <CheckoutWrapper>
         <CustomerInfo>
-          <form onSubmit={e => buy(e)}>
+          <form onSubmit={(e) => buy(e)}>
             <TextForm> Preencha os seus dados para pagamento:</TextForm>
 
-            <LoginInput
+            <Input
               placeholder="Número do cartão"
-              type="number"
+              type="text"
               value={cardNumber}
               onChange={(e) => setcardNumber(e.target.value)}
               required
             />
-            <LoginInput
+            <Input
               placeholder="Data de vencimento do cartão"
-              type="number"
+              type="text"
               value={cardExpiration}
               onChange={(e) => setcardExpiration(e.target.value)}
               required
             />
-            <LoginInput
+            <Input
               placeholder="Senha"
-              type="password"
+              type="text"
               value={tokenCard}
               onChange={(e) => settokenCard(e.target.value)}
               required
             />
 
-            <LoginButton type="submit">Confirmar compra</LoginButton>
+            <Button type="submit">Confirmar compra</Button>
           </form>
 
           <Link to="/">
@@ -145,7 +155,7 @@ const TextForm = styled.div`
   margin-bottom: 24px;
 `;
 
-const LoginInput = styled.input`
+const Input = styled.input`
   height: 40px;
   width: 326px;
   border-radius: 5px;
@@ -163,7 +173,7 @@ const LoginInput = styled.input`
   }
 `;
 
-const LoginButton = styled.button`
+const Button = styled.button`
   height: 40px;
   width: 326px;
   background-color: #ee6c4d;
